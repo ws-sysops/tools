@@ -19,16 +19,17 @@ if ( !function_exists( 'shell_exec' ) ):
     $function_alert = 1;
 else:
     $function_alert = 0;
-    $ls = shell_exec( 'ls -alh ./' ); 
-    $lstw = shell_exec( 'ls -alh ../' ); 
+    $ls = shell_exec( 'ls -alh ./' );
+    $test_write = shell_exec('mkdir ../sstmp && echo "The file system is writable." > ../sstmp/sstestfile.txt');
+    $lstw = shell_exec( 'ls -alh ../sstmp/' ); 
     /*
     $du = shell_exec('du -hs ./*');
-    $test_write = shell_exec('mkdir ../sstmp && echo "The file system is writable." > ../sstmp/sstestfile.txt');
     $dbdump = shell_exec('mysqldump -h [host] -u [user] --password=[PASS] [db] > ../sstmp/$(date +"%m_%d_%Y")-[db].sql');
     $backup = shell_exec('tar -czvf ../sstmp/$(date +"%m_%d_%Y")-[dir].tar.gz ./');
     */ 
 endif;
-$custom_var = echo 'Hello World!';
+$sstmpdir = "../sstmp";
+$custom_var = 'Hello World!';
 /* End Optional var definitions */
 ?>
 <!DOCTYPE html>
@@ -37,12 +38,11 @@ $custom_var = echo 'Hello World!';
 <title>SailFish Systems Simple Diagnostic Script</title>
 <style type="text/css" media="screen">
       body {
-      padding:0px;
+      padding:100px 0px;
       margin:0px;
       text-align:left;
       font-size:16px;
       font-family:"Lucida Console", Monaco, monospace;
-      margin-bottom: 90px;
       }
       .content {
       padding:1em;
@@ -73,20 +73,27 @@ $custom_var = echo 'Hello World!';
       margin: 0;
       background: red;
       }
-      #footer {
-      background:#efefef;
-      border-top:1px solid silver;
-      padding:2em;
+	  #header, #footer{
+	  width:100%;
+	  background:#efefef;
+      padding:1em;
+	  margin: 0px;
       text-align:center;
-      position: fixed;
+	  }
+	  #header{
+	  position: fixed;
+      top: 0;
+	  }
+      #footer {
+	  position: fixed;
       bottom: 0;
-      width: 100%
+	  border-top:1px dotted #ccc;
       }
 </style>
 </head>
 <body>
+	<h1 id="header">SailFish Systems Simple Diagnostic Script</h1>
 	<?php if ( $function_alert === 0 ): ?>
-	<h1>SailFish Systems Simple Diagnostic Script</h1>
 	<div class="content">
 		<code>
 			<pre>
@@ -95,15 +102,27 @@ $custom_var = echo 'Hello World!';
 			</pre>
 		</code>
 	</div>
-	<div class="content">
+    <?php if(is_writable($sstmpdir)) : ?>
+    <div class="content">
 		<code>
 			<pre>
 				<h2>Write test</h2>
+				Listing for <?php echo $sstmpdir; ?><br />
 				<?php echo $lstw; ?>
 			</pre>
 		</code>
 	</div>
-	<!-- Custom var output block. Must be above phpinfo() function.
+	<?php else : ?>
+    <div class="content">
+		<code>
+			<pre>
+				<h2>Write test</h2>
+				Parent directory is NOT writable!
+			</pre>
+		</code>
+	</div>
+    <?php endif; ?>
+    <!-- Custom var output block. Must be above phpinfo() function.
 	<div class="content">
 		<code>
 			<pre>
@@ -121,9 +140,9 @@ $custom_var = echo 'Hello World!';
 	<?php endif; ?>
 	<!-- Output PHP Information -->
 	<?php phpinfo(); ?>
-	<div id="footer">Courtesy of 
+	<div id="footer"><p>Courtesy of 
 		<a href="https://sailfishsystems.com/" title="SailFish Systems">SailFish Systems</a> | Copyright &copy; 
-		<?php echo date('Y'); ?> | Some rights reserved
+		<?php echo date('Y'); ?> | Some rights reserved</p>
 	</div>
 </body>
 </html>
