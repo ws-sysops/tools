@@ -1,7 +1,7 @@
 <?php
 /**
  * Script Name: SailFish Systems Simple Diagnostic Script
- * Script URI:  
+ * Script URI:  https://github.com/ws-sysops/tools/blob/master/ss-sds.php
  * Description: Simple Diagnostic Script used by SailFish Systems Tech Support
  * Author:      James Morris, CTO SailFish Systems, LLC - admin[at]sailfishsystems.com
  * Version:     1.0
