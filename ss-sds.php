@@ -28,6 +28,7 @@ else:
     $backup = shell_exec('tar -czvf ../sstmp/$(date +"%m_%d_%Y")-[dir].tar.gz ./');
     */ 
 endif;
+$custom_var = echo 'Hello World!';
 /* End Optional var definitions */
 ?>
 <!DOCTYPE html>
