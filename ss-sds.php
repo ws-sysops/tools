@@ -73,21 +73,21 @@ $custom_var = 'Hello World!';
       margin: 0;
       background: red;
       }
-	  #header, #footer{
-	  width:100%;
-	  background:#efefef;
+      #header, #footer{
+      width:100%;
+      background:#efefef;
       padding:1em;
-	  margin: 0px;
+      margin: 0px;
       text-align:center;
-	  }
-	  #header{
-	  position: fixed;
+      }
+      #header{
+      position: fixed;
       top: 0;
-	  }
+      }
       #footer {
-	  position: fixed;
+      position: fixed;
       bottom: 0;
-	  border-top:1px dotted #ccc;
+      border-top:1px dotted #ccc;
       }
 </style>
 </head>
