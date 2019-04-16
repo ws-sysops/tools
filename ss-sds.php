@@ -4,7 +4,7 @@
  * Script URI:  https://github.com/ws-sysops/tools/blob/master/ss-sds.php
  * Description: Simple Diagnostic Script used by SailFish Systems Tech Support
  * Author:      James Morris, CTO SailFish Systems, LLC - admin[at]sailfishsystems.com
- * Version:     1.0
+ * Version:     1.1.0
  * Author URI:  https://sailfishsystems.com/
  *
  */
@@ -12,7 +12,7 @@
 @ini_set('memory_limit', "512M");
 @ini_set('max_execution_time', 180);
 */
-@ini_set( 'display_errors', 1 );
+@ini_set( 'display_errors', 0 );
 /* End optional environment parameters for custom vars
 /* Optional var definitions */
 if ( !function_exists( 'shell_exec' ) ):
@@ -21,7 +21,8 @@ else:
     $function_alert = 0;
     $ls = shell_exec( 'ls -alh ./' );
     $test_write = shell_exec('mkdir ../sstmp && echo "The file system is writable." > ../sstmp/sstestfile.txt');
-    $lstw = shell_exec( 'ls -alh ../sstmp/' ); 
+    $lstw = shell_exec( 'ls -alh ../sstmp/' );
+    $top = shell_exec("top -n 1 -b");
     /*
     $du = shell_exec('du -hs ./*');
     $dbdump = shell_exec('mysqldump -h [host] -u [user] --password=[PASS] [db] > ../sstmp/$(date +"%m_%d_%Y")-[db].sql');
@@ -94,6 +95,14 @@ $custom_var = 'Hello World!';
 <body>
 	<h1 id="header">SailFish Systems Simple Diagnostic Script</h1>
 	<?php if ( $function_alert === 0 ): ?>
+	<div class="content">
+		<code>
+			<pre>
+				<h2>Current Process List</h2>
+				<?php echo $top; ?>
+			</pre>
+		</code>
+	</div>
 	<div class="content">
 		<code>
 			<pre>
