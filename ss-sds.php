@@ -8,11 +8,14 @@
  * Author URI:  https://sailfishsystems.com/
  *
  */
-/* Optional environment parameters for custom vars
-@ini_set('memory_limit', "512M");
-@ini_set('max_execution_time', 180);
-*/
-@ini_set( 'display_errors', 0 );
+/*Optional environment parameters for custom vars*/
+// Tweak performance
+@ini_set( 'max_execution_time', 180 );
+@ini_set( 'memory_limit', '512M' );
+@ini_set( 'post_max_size', '16M' );
+@ini_set( 'upload_max_filesize', '16M' ); 
+// Display errors
+@ini_set( 'display_errors', true );
 /* End optional environment parameters for custom vars
 /* Optional var definitions */
 if ( !function_exists( 'shell_exec' ) ):
